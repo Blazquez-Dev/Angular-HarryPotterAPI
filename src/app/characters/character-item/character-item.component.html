@@ -1,0 +1,5 @@
+<a class="card h-100 text-center text-decoration-none p-3" [routerLink]="['/characters', slug]">
+  <img #img class="w-100 object-fit-contain" height="160" [src]="image ?? placeholder" [alt]="name" loading="lazy"
+       (error)="img.src = placeholder" />
+  <span class="fw-semibold mt-2">{{ name }}</span>
+</a>

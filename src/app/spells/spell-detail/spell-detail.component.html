@@ -1,0 +1,26 @@
+<a class="btn btn-outline-dark mb-3" routerLink="/spells">← Volver al listado</a>
+@if (spell$ | async; as s) {
+  <div class="card">
+    <div class="card-body">
+      <img #img class="d-block mx-auto object-fit-contain" height="220" [src]="s.image ?? placeholder" [alt]="s.name"
+           (error)="img.src = placeholder" />
+      <h2 class="text-center mt-2">{{ s.name }}</h2>
+      <table class="table table-sm w-auto mx-auto">
+        <tr><th>Encantamiento</th><td>{{ s.incantation ?? '—' }}</td></tr>
+        <tr><th>Categoría</th><td>{{ s.category ?? '—' }}</td></tr>
+        <tr><th>Luz</th><td>{{ s.light ?? '—' }}</td></tr>
+        <tr><th>Mano</th><td>{{ s.hand ?? '—' }}</td></tr>
+        <tr><th>Creador</th><td>{{ s.creator ?? '—' }}</td></tr>
+      </table>
+      @if (s.effect) {
+        <h3 class="h5 mt-3">Efecto</h3>
+        <p>{{ s.effect }}</p>
+      }
+      @if (s.wiki) {
+        <a class="btn btn-dark" [href]="s.wiki" target="_blank" rel="noopener">Ver en la wiki</a>
+      }
+    </div>
+  </div>
+} @else {
+  <div class="text-center my-5"><div class="spinner-border text-warning"></div></div>
+}

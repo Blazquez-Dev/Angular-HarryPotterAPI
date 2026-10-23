@@ -1,0 +1,55 @@
+<a class="btn btn-outline-dark mb-3" routerLink="/characters">← Volver al listado</a>
+@if (character$ | async; as c) {
+  <div class="card">
+    <div class="card-body">
+      <img #img class="d-block mx-auto object-fit-contain" height="260" [src]="c.image ?? placeholder" [alt]="c.name"
+           (error)="img.src = placeholder" />
+      <h2 class="text-center mt-2">{{ c.name }}</h2>
+      <p class="text-center">
+        @if (c.house) { <span class="badge text-bg-warning me-1">{{ c.house }}</span> }
+        @if (c.species) { <span class="badge text-bg-dark me-1">{{ c.species }}</span> }
+        @if (c.blood_status) { <span class="badge text-bg-secondary me-1">{{ c.blood_status }}</span> }
+      </p>
+      <table class="table table-sm w-auto mx-auto">
+        <tr><th>Nacimiento</th><td>{{ c.born ?? '—' }}</td></tr>
+        <tr><th>Fallecimiento</th><td>{{ c.died ?? '—' }}</td></tr>
+        <tr><th>Género</th><td>{{ c.gender ?? '—' }}</td></tr>
+        <tr><th>Nacionalidad</th><td>{{ c.nationality ?? '—' }}</td></tr>
+        <tr><th>Altura</th><td>{{ c.height ?? '—' }}</td></tr>
+        <tr><th>Peso</th><td>{{ c.weight ?? '—' }}</td></tr>
+        <tr><th>Pelo</th><td>{{ c.hair_color ?? '—' }}</td></tr>
+        <tr><th>Ojos</th><td>{{ c.eye_color ?? '—' }}</td></tr>
+        <tr><th>Piel</th><td>{{ c.skin_color ?? '—' }}</td></tr>
+        <tr><th>Estado civil</th><td>{{ c.marital_status ?? '—' }}</td></tr>
+        <tr><th>Patronus</th><td>{{ c.patronus ?? '—' }}</td></tr>
+        <tr><th>Boggart</th><td>{{ c.boggart ?? '—' }}</td></tr>
+        <tr><th>Animago</th><td>{{ c.animagus ?? '—' }}</td></tr>
+      </table>
+      @if (c.alias_names?.length) {
+        <h3 class="h5 mt-3">Alias</h3>
+        @for (a of c.alias_names ?? []; track a) { <span class="badge text-bg-secondary me-1">{{ a }}</span> }
+      }
+      @if (c.titles?.length) {
+        <h3 class="h5 mt-3">Títulos</h3>
+        @for (t of c.titles ?? []; track t) { <span class="badge text-bg-secondary me-1">{{ t }}</span> }
+      }
+      @if (c.jobs?.length) {
+        <h3 class="h5 mt-3">Trabajos</h3>
+        <ul>@for (j of c.jobs ?? []; track j) { <li>{{ j }}</li> }</ul>
+      }
+      @if (c.wands?.length) {
+        <h3 class="h5 mt-3">Varitas</h3>
+        <ul>@for (w of c.wands ?? []; track w) { <li>{{ w }}</li> }</ul>
+      }
+      @if (c.family_members?.length) {
+        <h3 class="h5 mt-3">Familia</h3>
+        <ul>@for (f of c.family_members ?? []; track f) { <li>{{ f }}</li> }</ul>
+      }
+      @if (c.wiki) {
+        <a class="btn btn-dark mt-2" [href]="c.wiki" target="_blank" rel="noopener">Ver en la wiki</a>
+      }
+    </div>
+  </div>
+} @else {
+  <div class="text-center my-5"><div class="spinner-border text-warning"></div></div>
+}

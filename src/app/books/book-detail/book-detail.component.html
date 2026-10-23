@@ -1,0 +1,28 @@
+<a class="btn btn-outline-dark mb-3" routerLink="/books">← Volver al listado</a>
+@if (book$ | async; as b) {
+  <div class="card">
+    <div class="card-body">
+      <img #img class="d-block mx-auto object-fit-contain" height="320" [src]="b.cover ?? placeholder" [alt]="b.title"
+           (error)="img.src = placeholder" />
+      <h2 class="text-center mt-2">{{ b.title }}</h2>
+      <table class="table table-sm w-auto mx-auto">
+        <tr><th>Autor</th><td>{{ b.author ?? '—' }}</td></tr>
+        <tr><th>Páginas</th><td>{{ b.pages ?? '—' }}</td></tr>
+        <tr><th>Publicación</th><td>{{ b.release_date ?? '—' }}</td></tr>
+      </table>
+      @if (b.dedication) {
+        <h3 class="h5 mt-3">Dedicatoria</h3>
+        <p class="fst-italic">{{ b.dedication }}</p>
+      }
+      @if (b.summary) {
+        <h3 class="h5 mt-3">Resumen</h3>
+        <p>{{ b.summary }}</p>
+      }
+      @if (b.wiki) {
+        <a class="btn btn-dark" [href]="b.wiki" target="_blank" rel="noopener">Ver en la wiki</a>
+      }
+    </div>
+  </div>
+} @else {
+  <div class="text-center my-5"><div class="spinner-border text-warning"></div></div>
+}
